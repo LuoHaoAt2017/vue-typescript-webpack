@@ -1,5 +1,5 @@
-import Home from '@/pages/Home.vue';
-import Fleet from '@/pages/Fleet.vue';
+import Home from '@/pages/home.vue';
+import Fleet from '@/pages/fleet.vue';
 
 const routes: Array<any> = [
     {

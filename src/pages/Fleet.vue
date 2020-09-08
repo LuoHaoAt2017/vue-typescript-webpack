@@ -3,13 +3,8 @@
     <section class="ship-list">
       <h3>Frigate</h3>
       <ul class="frigate-list" v-if="frigates.length">
-        <li class="ship-card" v-for="(ship, index) in frigates" :key="ship.id">
-          {{index}} - {{ship.name}} - {{ship.weight}}
-          <img
-            :src="icons[0].src"
-            :alt="icons[0].alt"
-            class="ship-icon"
-          />
+        <li v-for="(ship, index) in frigates" :key="index">
+					<ship-component :ship="ship" v-model="ship.checked"/>
         </li>
       </ul>
       <div class="operation">
@@ -21,13 +16,8 @@
     <section class="ship-list">
       <h3>Destroyer</h3>
       <ul class="destroyer-list" v-if="destroyers.length">
-        <li class="ship-card" v-for="(ship, index) in destroyers" :key="ship.id">
-          {{index}} - {{ship.name}} - {{ship.weight}}
-          <img
-            :src="icons[1].src"
-            :alt="icons[1].alt"
-            class="ship-icon"
-          />
+        <li class="ship-card" v-for="(ship, index) in destroyers" :key="index">
+					<ship-component :ship="ship" v-model="ship.checked"/>
         </li>
       </ul>
       <div class="operation">
@@ -39,13 +29,8 @@
     <section class="ship-list">
       <h3>Assault</h3>
       <ul class="assault-list" v-if="assaults.length">
-        <li class="ship-card" v-for="(ship, index) in assaults" :key="ship.id">
-          {{index}} - {{ship.name}} - {{ship.weight}}
-          <img
-            :src="icons[2].src"
-            :alt="icons[2].alt"
-            class="ship-icon"
-          />
+        <li class="ship-card" v-for="(ship, index) in assaults" :key="index">
+					<ship-component :ship="ship" v-model="ship.checked"/>
         </li>
       </ul>
       <div class="operation">
@@ -58,39 +43,28 @@
 
 <script lang="ts">
 import { Ship } from "@/model";
-import Frigate from "@/assets/img/frigate.jpg";
-import Destroyer from "@/assets/img/destroyer.jpg";
-import Assault from "@/assets/img/assault.jpg";
-import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch, Mixins, Model
+ } from "vue-property-decorator";
+ import { Checkbox } from 'ant-design-vue'
 import { State, Getter, Mutation, Action, namespace } from "vuex-class";
-import ShipBase from "@/components/ship-base.vue";
-import { mixins } from "vue-class-component";
+import ShipComponent from "@/components/ship.vue";
 const fleetModule = namespace("Fleet");
 
 @Component({
-  name: "Fleet",
+	name: "Fleet",
+	components: {
+		'a-checkbox': Checkbox,
+		ShipComponent
+	}
 })
-export default class App extends mixins(ShipBase) {
+export default class App extends Vue {
   // data
   counter: number = 10;
-  icons: Array<any> = [
-    {
-      src: Frigate,
-      alt: "frigate",
-    },
-    {
-      src: Destroyer,
-      alt: "destroyer",
-    },
-    {
-      src: Assault,
-      alt: "assault",
-    },
-  ];
 
   // props
   @Prop() captain!: string;
-  @Prop() commissar!: string;
+	@Prop() commissar!: string;
+
 
   get totalShips() {
     const aaa =
@@ -176,23 +150,11 @@ export default class App extends mixins(ShipBase) {
     position: relative;
     margin: 20px auto;
     min-height: 250px;
-    .border-all(2px);
+		.border-all(2px);
+		width: 100%;
     text-align: center;
     &:hover {
       box-shadow: 0 0 4px 2px #eeeeee;
-    }
-
-    .ship-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      margin-bottom: 20px;
-      .ship-icon {
-        height: auto;
-        width: 400px;
-        border-radius: 4px;
-      }
     }
   }
 
