@@ -9,3 +9,5 @@
 "babel-polyfill": "^6.26.0",
 
 tsconfig
+
+"babel-polyfill";
