@@ -13,7 +13,7 @@ class FleetState {
     assaults: Array<Ship> = [];
 }
 
-const fleet = {
+export default {
     namespaced: true,
     state: new FleetState(),
     getters: {
@@ -77,5 +77,3 @@ const fleet = {
         }
     } as ActionTree<FleetState, any>
 }
-
-export default fleet;

@@ -2,7 +2,6 @@
   <div class="ship-container">
     <span>
       <a-checkbox :checked="checked" @change="onChange">合格</a-checkbox>
-      <label>{{ship.name}}</label>
     </span>
     <img
       :src="ship.icon.src"

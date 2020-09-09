@@ -4,9 +4,9 @@
       <input class="lg-input" v-focus />
     </section>
     <section class="ships-wrapper">
-      <ship-list :ships="frigates" title="Frigate" @increase="() => onIncrese('frigate')"></ship-list>
-      <ship-list :ships="destroyers" title="Destroyer" @increase="() => onIncrese('destroyer')"></ship-list>
-      <ship-list :ships="assaults" title="Assault" @increase="() => onIncrese('assault')"></ship-list>
+      <ship-list :ships="frigates" title="护卫舰" @increase="() => onIncrese('frigate')"></ship-list>
+      <ship-list :ships="destroyers" title="驱逐舰" @increase="() => onIncrese('destroyer')"></ship-list>
+      <ship-list :ships="assaults" title="攻击舰" @increase="() => onIncrese('assault')"></ship-list>
     </section>
   </div>
 </template>
