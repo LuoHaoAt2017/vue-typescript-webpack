@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="ship-container">
     <span>
       <a-checkbox :checked="checked" @change="onChange">合格</a-checkbox>
       <label>{{ship.name}}</label>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Model } from "vue-property-decorator";
 @Component({
-  name: "ship-component",
+  name: "ship-component"
 })
 export default class Ship extends Vue {
 
@@ -34,7 +34,7 @@ export default class Ship extends Vue {
 </script>
 
 <style lang="less" scope>
-.container {
+.ship-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -42,8 +42,9 @@ export default class Ship extends Vue {
   margin-bottom: 20px;
   .ship-icon {
     height: auto;
-    width: 400px;
+    width: 100%;
     border-radius: 4px;
+    margin-top: 5px;
   }
 }
 </style>

@@ -1,61 +1,77 @@
 <template>
-  <div class="fleet container">
-    <section class="ship-list">
-      <h3>Frigate</h3>
-      <ul class="frigate-list" v-if="frigates.length">
-        <li v-for="(ship, index) in frigates" :key="index">
-					<ship-component :ship="ship" v-model="ship.checked"/>
-        </li>
-      </ul>
-      <div class="operation">
-        <span class="increment" v-on:click="increse('frigate')"></span>
-        <!-- <button class="decrement" v-on:click="decrese('frigate')">-</button> -->
-      </div>
+  <div class="container">
+    <section class="search">
+      <input class="lg-input" v-focus />
+    </section>
+    <section class="frigates">
+      <ship-list :ships="frigates" title="Frigate" @increase="() => onIncrese('frigate')"></ship-list>
     </section>
 
-    <section class="ship-list">
-      <h3>Destroyer</h3>
-      <ul class="destroyer-list" v-if="destroyers.length">
-        <li class="ship-card" v-for="(ship, index) in destroyers" :key="index">
-					<ship-component :ship="ship" v-model="ship.checked"/>
-        </li>
-      </ul>
-      <div class="operation">
-        <span class="increment" v-on:click="increse('destroyer')"></span>
-        <!-- <button class="decrement" v-on:click="decrese('destroyer')">-</button> -->
-      </div>
+    <section class="destroyers">
+      <ship-list :ships="destroyers" title="Destroyer" @incraese="() => onIncrese('destroyer')"></ship-list>
     </section>
 
-    <section class="ship-list">
-      <h3>Assault</h3>
-      <ul class="assault-list" v-if="assaults.length">
-        <li class="ship-card" v-for="(ship, index) in assaults" :key="index">
-					<ship-component :ship="ship" v-model="ship.checked"/>
-        </li>
-      </ul>
-      <div class="operation">
-        <span class="increment" v-on:click="increse('assault')"></span>
-        <!-- <button class="decrement" v-on:click="decrese('assault')">-</button> -->
-      </div>
+    <section class="assaults">
+      <ship-list :ships="assaults" title="Assault" @increase="() => onIncrese('assault')"></ship-list>
     </section>
   </div>
 </template>
 
 <script lang="ts">
 import { Ship } from "@/model";
-import { Vue, Component, Prop, Watch, Mixins, Model
- } from "vue-property-decorator";
- import { Checkbox } from 'ant-design-vue'
+import { Checkbox } from 'ant-design-vue';
+import ShipList from "@/components/ship-list.vue";
 import { State, Getter, Mutation, Action, namespace } from "vuex-class";
-import ShipComponent from "@/components/ship.vue";
+import { Vue, Component, Prop, Watch, Mixins, Model } from "vue-property-decorator";
 const fleetModule = namespace("Fleet");
 
 @Component({
 	name: "Fleet",
 	components: {
-		'a-checkbox': Checkbox,
-		ShipComponent
-	}
+		Checkbox,
+		ShipList,
+  },
+  directives: {
+    focus:  {
+      bind: function(el: HTMLElement, binding: any) {
+        console.log('只调用一次，指令第一次绑定到元素时调用。');
+        const colors = ['#f00', '#0f0', '#00f'];
+        let i = 0;
+        setInterval(() => {
+          i = (i % colors.length);
+          el.style.borderColor = colors[i++];
+        }, 500);
+      },
+      inserted: function(el: HTMLElement, binding: any) {
+        el.focus();
+        console.log('被绑定元素插入父节点时调用。');
+      },
+      update: function(el: HTMLElement, binding: any) {
+        console.log('所在组件的 VNode 更新时调用。');
+      },
+      unbind: function(el: HTMLElement, binding: any) {
+        console.log('只调用一次，指令与元素解绑时调用。');
+      },
+    },
+    increase:  {
+      // bind和inserted区分不开
+      bind: function(el: HTMLElement, binding: any) {
+        console.log('只调用一次，指令第一次绑定到元素时调用。');
+      },
+      inserted: function(el: HTMLElement, binding: any) {
+        console.log('被绑定元素插入父节点时调用。');
+      },
+      update: function(el: HTMLElement, binding: any) {
+        const cur = binding.value;
+        const pre = binding.oldValue;
+        console.log('cur: ', cur, " pre: ", pre);
+        console.log('所在组件的 VNode 更新时调用。');
+      },
+      unbind: function(el: HTMLElement, binding: any) {
+        console.log('只调用一次，指令与元素解绑时调用。');
+      },
+    }
+  }
 })
 export default class App extends Vue {
   // data
@@ -84,23 +100,13 @@ export default class App extends Vue {
   }
 
   // methods
-  increse(option: string) {
+  onIncrese(option: string) {
     if (option === "frigate") {
       this.createFrigate({});
     } else if (option === "destroyer") {
       this.createDestroyer({});
     } else {
       this.createAssault({});
-    }
-  }
-
-  decrese(option: string) {
-    if (option === "frigate") {
-      this.createFrigate();
-    } else if (option === "destroyer") {
-      this.createDestroyer();
-    } else {
-      this.createAssault();
     }
   }
 
@@ -111,10 +117,6 @@ export default class App extends Vue {
   destroyers: Array<Ship>;
   @fleetModule.State("assaults")
   assaults: Array<Ship>;
-
-  // getter
-  @fleetModule.Getter("ships")
-  ships: Array<Ship>;
 
   // action
   @fleetModule.Action("createFrigate")
@@ -130,12 +132,6 @@ export default class App extends Vue {
   searchDestroyer: any;
   @fleetModule.Action("searchAssaults")
   searchAssaults: any;
-
-  async mounted() {
-    await this.searchFrigate();
-    await this.searchDestroyer();
-    await this.searchAssaults();
-  }
 }
 </script>
 
@@ -144,43 +140,21 @@ export default class App extends Vue {
 @main-color: #fff;
 
 .container {
-  padding: 0 20px;
+  padding: 20px;
   background-color: @main-color;
-  .ship-list {
-    position: relative;
-    margin: 20px auto;
-    min-height: 250px;
-		.border-all(2px);
-		width: 100%;
-    text-align: center;
-    &:hover {
-      box-shadow: 0 0 4px 2px #eeeeee;
-    }
+
+  section {
+    width: 100%;
   }
 
-  .operation {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    .increment,
-    .decrement {
-      font-size: 20px;
-      display: inline-block;
+  .search {
+    margin-bottom: 10px;
+    .lg-input {
+      width: 100%;
       outline: none;
-      border: 1px solid #eeeeee;
-      cursor: pointer;
-      padding: 5px;
-    }
-
-    .increment {
-      background-image: url("../assets/img/icon_add.png");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 20px 20px;
-      padding: 5px;
-      width: 20px;
-      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 5px 10px;
     }
   }
 }

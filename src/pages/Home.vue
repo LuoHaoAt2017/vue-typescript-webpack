@@ -13,6 +13,8 @@
     }
 </script>
 
-<style>
-
+<style lang="less">
+.home {
+    text-align: center;
+}
 </style>
