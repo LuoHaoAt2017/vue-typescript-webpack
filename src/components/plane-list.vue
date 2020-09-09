@@ -9,7 +9,7 @@
     <div class="operation">
       <span class="increment" v-on:click="$emit('increase')"></span>
     </div>
-  </section>
+  </section>  
 </template>
 
 <script lang="ts">
@@ -24,15 +24,15 @@ import {
 } from "vue-property-decorator";
 import { Checkbox } from "ant-design-vue";
 import { State, Getter, Mutation, Action, namespace } from "vuex-class";
-import PlaneComponent from "@/components/plane-item.vue";
+import PlaneComponent from "@/components/plane-item";
 
 @Component({
   name: "plane-list",
   components: {
     "a-checkbox": Checkbox,
     PlaneComponent,
-  },
-})
+  }
+})      
 export default class PlaneList extends Vue {
   @Prop()
   readonly planes: Array<any>;
