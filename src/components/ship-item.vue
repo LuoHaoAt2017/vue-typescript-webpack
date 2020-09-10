@@ -3,32 +3,25 @@
     <span>
       <a-checkbox :checked="checked" @change="onChange">合格</a-checkbox>
     </span>
-    <img
-      :src="ship.icon.src"
-      :alt="ship.icon.alt"
-      class="ship-icon"
-      v-show="ship.checked"
-    />
+    <img :src="ship.icon.src" :alt="ship.icon.alt" class="ship-icon" v-show="ship.checked" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Model } from "vue-property-decorator";
 @Component({
-  name: "ship-component"
+  name: "ship-component",
 })
 export default class Ship extends Vue {
-
-  @Model('change')
+  @Model("change")
   readonly checked!: boolean;
 
   @Prop()
   ship!: Object;
 
   onChange(e: any) {
-    this.$emit('change', e.target.checked);
+    this.$emit("change", e.target.checked);
   }
-
 }
 </script>
 
