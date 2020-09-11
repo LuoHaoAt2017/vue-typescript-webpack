@@ -1,0 +1,16 @@
+{
+  "ActionName": "DoAction",
+  "Command": "Load",
+  "QueryCode": "D000183eacc131645e84ede9d82eb1aba469d0c",
+  "Status": 1,
+  "SheetQuery": 1,
+  "ListScene": 2,
+  "SheetCode": "D0001838df7a7d7735e454f953dca57c9216160",
+  "DataField": "F0000018",
+  "SheetData": "{}",
+  "scopeType": 4,
+  "offset": 0,
+  "IsSheetQueryDropDown": true,
+  "FilterProperty": {},
+  "isExternal": true
+}
