@@ -28,8 +28,9 @@ export default class App extends Vue {
     next();
   }
   mounted() {
-    // const url = `${process.env.BASE_URL}/Action/Form`;
-    // window.fetch(url).then(() => {});
+    $(".app").click(function () {
+      console.log("hello jquery");
+    });
   }
 }
 </script>

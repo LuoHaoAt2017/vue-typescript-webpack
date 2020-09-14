@@ -8,7 +8,6 @@ import 'ant-design-vue/dist/antd.css';
 import '@/assets/css/reset.css';
 import '@/assets/less/common.less';
 import '@/service/index';
-
 Vue.use(antd);
 
 new Vue({
