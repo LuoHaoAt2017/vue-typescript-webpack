@@ -9,7 +9,7 @@ function resolve(src) {
 
 module.exports = {
   entry: {
-    main: resolve("src/main.ts"),
+    main: resolve("src/main.js"),
   },
   output: {
     filename: "[name].bundle.js",
@@ -17,23 +17,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: "vue-loader",
+        test: /\.js$/,
+        loader: "babel-loader",
       },
       {
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: "babel-loader",
-          },
-          {
-            loader: "ts-loader",
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-            },
-          },
-        ],
-        exclude: /node_modules/,
+        test: /\.vue$/,
+        loader: "vue-loader",
       },
       {
         test: /\.(png|jpg|svg)$/,
@@ -58,11 +47,9 @@ module.exports = {
     alias: {
       "@": resolve("src"),
     },
-    extensions: [".tsx", ".ts", ".js", ".vue", ".json"],
+    extensions: [".js", ".vue"],
   },
   externals: {
-    vue: "vue",
-    "vue-router": "VueRouter",
-    lodash: "lodash",
+    vue: "Vue",
   },
 };

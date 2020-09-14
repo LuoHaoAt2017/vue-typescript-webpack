@@ -1,7 +1,0 @@
-module.exports = {
-  presets: ["@babel/preset-env"],
-  plugins: [
-    "transform-vue-jsx",
-    // "transform-runtime",
-  ],
-}

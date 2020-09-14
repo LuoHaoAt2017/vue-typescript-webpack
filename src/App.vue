@@ -1,25 +1,19 @@
 <template>
-  <div class="app"></div>
+  <div class="app">{{ msg }}</div>
 </template>
 
-<script lang="ts">
-import { Vue, Component, Mixins, Provide } from "vue-property-decorator";
-import _ from "lodash";
-
-Component.registerHooks([
-  "beforeRouteEnter",
-  "beforeRouteLeave",
-  "beforeRouteUpdate",
-]);
-
-@Component({
+<script>
+export default {
   name: "App",
-})
-export default class App extends Vue {
+  data() {
+    return {
+      msg: "Hello Vue",
+    };
+  },
   mounted() {
-    (window as any).matrix();
-  }
-}
+    console.log("hello");
+  },
+};
 </script>
 
 <style lang="less">
