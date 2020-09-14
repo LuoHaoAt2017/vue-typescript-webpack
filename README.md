@@ -43,3 +43,13 @@ http://localhost:8090/test-api/action
 
 方案二：
 给 form 表单添加一个蒙层，遮住表单内部的元素。
+
+### 模块方案
+
+浏览器采取异步模块加载机制，因为依赖包在服务器上。
+AMD 规范
+require([module], callback);
+
+服务器采取同步模块加载机制，因为依赖包在本地磁盘上。
+CommonJS 规范
+module.exports
