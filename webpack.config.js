@@ -63,4 +63,11 @@ module.exports = {
     },
     extensions: [".tsx", ".ts", ".js", ".vue", ".json"],
   },
+  externals: {
+    vue: "Vue",
+    vuex: "Vuex",
+    "vue-router": "VueRouter",
+    "ant-design-vue": "antd",
+    moment: "moment",
+  },
 };

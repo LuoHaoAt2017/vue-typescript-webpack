@@ -2,6 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 const WebpackMerge = require("webpack-merge");
 const config = require("./webpack.config");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = WebpackMerge(config, {
   mode: "production",
@@ -18,5 +20,6 @@ module.exports = WebpackMerge(config, {
       "process.env.BASE_URL": JSON.stringify("/api-prod"),
       "process.env.NODE_ENV": JSON.stringify("prod"),
     }),
+    new BundleAnalyzerPlugin(),
   ],
 });

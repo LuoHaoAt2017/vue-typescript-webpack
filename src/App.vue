@@ -28,6 +28,7 @@ export default class App extends Vue {
     next();
   }
   mounted() {
+    // ProvidePlugin
     $(".app").click(function () {
       console.log("hello jquery");
     });
