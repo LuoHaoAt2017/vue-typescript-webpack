@@ -1,18 +1,12 @@
 <template>
-  <div class="app">{{ msg }}</div>
+  <div class="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
   name: "App",
-  data() {
-    return {
-      msg: "Hello Vue",
-    };
-  },
-  mounted() {
-    console.log("hello");
-  },
 };
 </script>
 

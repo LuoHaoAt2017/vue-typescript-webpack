@@ -51,5 +51,9 @@ module.exports = {
   },
   externals: {
     vue: "Vue",
+    vuex: "Vuex",
+    "vue-router": "VueRouter",
+    moment: "moment",
+    antd: "antd",
   },
 };
