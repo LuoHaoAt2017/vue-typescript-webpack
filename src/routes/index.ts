@@ -43,7 +43,13 @@ const routes: Array<any> = [
 
 const router = new VueRouter({
     mode: "hash",
-    routes: routes
+    routes: [
+      {
+        name: "首页",
+        path: "/",
+        component: () => import("../views/aaa-aaa.vue"),
+      }
+    ]
 });
 
 export default router;
